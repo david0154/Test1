@@ -1,20 +1,26 @@
-# Dockerfile for deploying Arya program on Render.com
+# Use an official Ubuntu base image
 FROM ubuntu:latest
 
-# Install necessary dependencies for Arya
+# Install necessary dependencies
 RUN apt-get update && apt-get install -y \
     git \
+    curl \
     build-essential \
-    curl
+    clang \
+    sudo
 
-# Install Arya programming language
+# Clone Arya programming language from GitHub
 RUN git clone https://github.com/david0154/Arya.git /arya
-WORKDIR /arya
-RUN make install
 
-# Set working directory and copy the program
+# Change directory to the Arya repository
+WORKDIR /arya/installer
+
+# Run the install script
+RUN sudo bash install.sh
+
+# Set working directory to the app directory (where your .aya files are located)
 WORKDIR /app
 COPY . /app
 
-# Build and run the program
-CMD ["arya", "run", "test.aya"]
+# Run the Arya program
+CMD ["arya", "run", "app.aya"]
