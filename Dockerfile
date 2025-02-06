@@ -10,12 +10,12 @@ RUN apt-get update && apt-get install -y \
     sudo
 
 # Clone Arya programming language from GitHub
-RUN git clone https://github.com/david0154/Arya.git /arya
+RUN git clone https://github.com/david0154/Arya.git /Arya
 
-# Change directory to the Arya repository
-WORKDIR /arya/installer
+# Change directory to the Arya repository's root (where install.sh is located)
+WORKDIR /Arya
 
-# Run the install script
+# Run the install.sh script
 RUN sudo bash install.sh
 
 # Set working directory to the app directory (where your .aya files are located)
